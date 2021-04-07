@@ -558,10 +558,10 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
       for (i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode)
       if (isDef(i = data.hook) && isDef(i = i.update)) i(oldVnode, vnode)
     }
-    if (isUndef(vnode.text)) { // 如果不是文本
-      if (isDef(oldCh) && isDef(ch)) { // 两方都有儿子
-        if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
-      } else if (isDef(ch)) { // 新的有儿子
+    if (isUndef(vnode.text)) { // 如果不是文本节点
+      if (isDef(oldCh) && isDef(ch)) { // 两方都有儿子。
+        if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)  // 开始比较子节点
+      } else if (isDef(ch)) { // 只有新的有儿子
         if (process.env.NODE_ENV !== 'production') {
           checkDuplicateKeys(ch)
         }
@@ -572,7 +572,7 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
       } else if (isDef(oldVnode.text)) {
         nodeOps.setTextContent(elm, '')
       }
-    } else if (oldVnode.text !== vnode.text) {
+    } else if (oldVnode.text !== vnode.text) {  // 是文本节点而且不相等
       // 文本直接设置最新的
       nodeOps.setTextContent(elm, vnode.text)
     }
