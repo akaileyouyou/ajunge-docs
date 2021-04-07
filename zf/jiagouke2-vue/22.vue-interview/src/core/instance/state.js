@@ -61,7 +61,7 @@ export function initState (vm: Component) {
   }
 }
 
-function initProps (vm: Component, propsOptions: Object) { // 用户声明要接收的属性
+function initProps (vm: Component, propsOptions: Object) { // 用户声明要接收的属性。
   const propsData = vm.$options.propsData || {} // 获取传入的数据
   const props = vm._props = {}
   // cache prop keys so that future props updates can iterate using Array
@@ -72,7 +72,7 @@ function initProps (vm: Component, propsOptions: Object) { // 用户声明要接
   if (!isRoot) { // 是根元素定义成响应式的
     toggleObserving(false)
   }
-  for (const key in propsOptions) { // 循环用户定义的属性
+  for (const key in propsOptions) { // 循环用户定义的属性。检查是否合法。
     keys.push(key)
     const value = validateProp(key, propsOptions, propsData, vm)
     /* istanbul ignore else */
