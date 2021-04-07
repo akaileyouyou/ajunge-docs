@@ -34,7 +34,7 @@ export function initLifecycle (vm: Component) {
 
   // locate first non-abstract parent
   let parent = options.parent // 获取父亲
-  if (parent && !options.abstract) { // 抽象组件 keep-alive
+  if (parent && !options.abstract) { // options.abstract：是否是抽象组件。例如 keep-alive就是抽象组件。抽象组件不会被记录到父子关系中。
     while (parent.$options.abstract && parent.$parent) {
       parent = parent.$parent
     }
