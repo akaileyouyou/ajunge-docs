@@ -561,13 +561,13 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
     if (isUndef(vnode.text)) { // 如果不是文本节点
       if (isDef(oldCh) && isDef(ch)) { // 两方都有儿子。
         if (oldCh !== ch) updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)  // 开始比较子节点
-      } else if (isDef(ch)) { // 只有新的有儿子
+      } else if (isDef(ch)) { // 只有新的虚拟dom有子节点
         if (process.env.NODE_ENV !== 'production') {
           checkDuplicateKeys(ch)
         }
         if (isDef(oldVnode.text)) nodeOps.setTextContent(elm, '') // 删除老的，添加新的
         addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue)
-      } else if (isDef(oldCh)) {
+      } else if (isDef(oldCh)) {  // 老的虚拟dom存在子节点新的虚拟dom不存在子节点
         removeVnodes(oldCh, 0, oldCh.length - 1) // 删除老的所有节点
       } else if (isDef(oldVnode.text)) {
         nodeOps.setTextContent(elm, '')
