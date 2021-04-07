@@ -407,12 +407,12 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
   }
 
   function updateChildren (parentElm, oldCh, newCh, insertedVnodeQueue, removeOnly) {
-    let oldStartIdx = 0 // 两个开头指针
-    let newStartIdx = 0
-    let oldEndIdx = oldCh.length - 1  // 两个结束指针
+    let oldStartIdx = 0 // 两个开头指针。老节点开头指针。
+    let newStartIdx = 0 // 新节点开头指针。
+    let oldEndIdx = oldCh.length - 1  // 两个结束指针。老节点结束指针。
     let oldStartVnode = oldCh[0]
     let oldEndVnode = oldCh[oldEndIdx]
-    let newEndIdx = newCh.length - 1
+    let newEndIdx = newCh.length - 1    // 新节点结束指针。
     let newStartVnode = newCh[0]
     let newEndVnode = newCh[newEndIdx] // 双指针
     let oldKeyToIdx, idxInOld, vnodeToMove, refElm
@@ -431,8 +431,8 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
         oldStartVnode = oldCh[++oldStartIdx] // Vnode has been moved left
       } else if (isUndef(oldEndVnode)) {
         oldEndVnode = oldCh[--oldEndIdx]
-      } else if (sameVnode(oldStartVnode, newStartVnode)) { // 开头相同节点比较  是不是相同节点 主要比较key 和 标签名 
-        patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
+      } else if (sameVnode(oldStartVnode, newStartVnode)) { // 开头相同节点比较。  是不是相同节点？ 主要比较key 和 标签名 
+        patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)  // 如果是相同节点那就比较属性。
         oldStartVnode = oldCh[++oldStartIdx]
         newStartVnode = newCh[++newStartIdx]
       } else if (sameVnode(oldEndVnode, newEndVnode)) { // 尾部相同比较
@@ -449,17 +449,19 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
         canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm)
         oldEndVnode = oldCh[--oldEndIdx]
         newStartVnode = newCh[++newStartIdx]
-      } else {
-        // 有key 就是复用
+      } else {  // diff优化过程
+        // 有key 就是复用。不加key那key的值就是undefined，vue不会自动加。
+        // 以新vNode的key去老vNode里找。
+        
 
-        if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx) 
+        if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx) // 创造老节点的映射表
         idxInOld = isDef(newStartVnode.key) // KEY => INDEX 映射表
           ? oldKeyToIdx[newStartVnode.key]
           : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
-        if (isUndef(idxInOld)) { // 找不到对应的key，创建元素
+        if (isUndef(idxInOld)) { // 在老节点里找不到新vNode对应的key，创建元素
           createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm, false, newCh, newStartIdx)
         } else {
-          // 找到了 就去比较对应的儿子和属性
+          // 在老节点里找到了新vNode对应的key 就去比较对应的儿子和属性
           vnodeToMove = oldCh[idxInOld]
           if (sameVnode(vnodeToMove, newStartVnode)) { // 找到了比较儿子更新属性
             patchVnode(vnodeToMove, newStartVnode, insertedVnodeQueue, newCh, newStartIdx)
@@ -475,10 +477,10 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
     }
     if (oldStartIdx > oldEndIdx) {
       refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm
-      // 新的多添加
+      // 新的多添加：添加新vNode里新出现的节点
       addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue)
     } else if (newStartIdx > newEndIdx) {
-      // 新的少删除
+      // 新的少删除：删除老vNode里多的节点
       removeVnodes(oldCh, oldStartIdx, oldEndIdx)
     }
   }
