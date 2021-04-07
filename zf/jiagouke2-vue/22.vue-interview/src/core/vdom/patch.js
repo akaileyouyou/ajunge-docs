@@ -518,11 +518,11 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
     index,
     removeOnly
   ) {
-    if (oldVnode === vnode) { // 前后一样跳过
+    if (oldVnode === vnode) { // 前后（新老节点）一样跳过
       return
     }
 
-    const elm = vnode.elm = oldVnode.elm // 复用老元素
+    const elm = vnode.elm = oldVnode.elm // 新老节点一样。复用老元素
 
     if (isTrue(oldVnode.isAsyncPlaceholder)) {
       if (isDef(vnode.asyncFactory.resolved)) {
