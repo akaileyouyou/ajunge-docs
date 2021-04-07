@@ -215,7 +215,7 @@ export function createComponentInstanceForVnode (
     _parentVnode: vnode,
     parent // 父组件实例
   }
-  // Vue.extend().$mount()  // 组件的挂载
+  // Vue.extend().$mount()  // 组件的挂载。创建一个实例并且挂载。
   // check inline-template render functions
   const inlineTemplate = vnode.data.inlineTemplate
   if (isDef(inlineTemplate)) {
