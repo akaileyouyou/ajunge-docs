@@ -132,18 +132,18 @@ export function addHandler ( // 添加事件处理
   }
 
   // check capture modifier
-  if (modifiers.capture) { // 是capture 加!
-    delete modifiers.capture    !fn
-    name = prependModifierMarker('!', name, dynamic)
+  if (modifiers.capture) {
+    delete modifiers.capture    
+    name = prependModifierMarker('!', name, dynamic)  // 给capture的事件名称前加!，例如：!事件名。后出处理的时候，发现事件名以！开头说明是capture修饰的事件，需要进行对应的处理。
   }
-  if (modifiers.once) {  // once 加~
-    delete modifiers.once     ~fn
-    name = prependModifierMarker('~', name, dynamic)
+  if (modifiers.once) { 
+    delete modifiers.once     
+    name = prependModifierMarker('~', name, dynamic) // 给once的事件名称前加~，例如：~事件名。后出处理的时候，发现事件名以~开头说明是once修饰的事件，需要进行对应的处理。
   }
   /* istanbul ignore if */
-  if (modifiers.passive) { // passive 加&
-    delete modifiers.passive   &fn
-    name = prependModifierMarker('&', name, dynamic)
+  if (modifiers.passive) { 
+    delete modifiers.passive  
+    name = prependModifierMarker('&', name, dynamic) // 给passive的事件名称前加&，例如：&事件名。后出处理的时候，发现事件名以&开头说明是passive修饰的事件，需要进行对应的处理。
   }
 
   let events
