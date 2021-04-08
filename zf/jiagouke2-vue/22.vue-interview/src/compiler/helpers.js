@@ -104,7 +104,7 @@ export function addHandler ( // 添加事件处理
   /* istanbul ignore if */
   if (
     process.env.NODE_ENV !== 'production' && warn &&
-    modifiers.prevent && modifiers.passive
+    modifiers.prevent && modifiers.passive   // passive修饰符
   ) {
     warn(
       'passive and prevent can\'t be used together. ' +
@@ -116,7 +116,7 @@ export function addHandler ( // 添加事件处理
   // normalize click.right and click.middle since they don't actually fire
   // this is technically browser-specific, but at least for now browsers are
   // the only target envs that have right/middle clicks.
-  if (modifiers.right) {
+  if (modifiers.right) {  // right修饰符
     if (dynamic) {
       name = `(${name})==='click'?'contextmenu':(${name})`
     } else if (name === 'click') {
