@@ -309,7 +309,7 @@ export function genData (el: ASTElement, state: CodegenState): string {
 function genDirectives (el: ASTElement, state: CodegenState): string | void {
   const dirs = el.directives
   if (!dirs) return
-  let res = 'directives:['
+  let res = 'directives:['   // 这里会拼成一个属性
   let hasRuntime = false
   let i, l, dir, needRuntime
   for (i = 0, l = dirs.length; i < l; i++) {
@@ -331,7 +331,7 @@ function genDirectives (el: ASTElement, state: CodegenState): string | void {
         dir.modifiers ? `,modifiers:${JSON.stringify(dir.modifiers)}` : ''
       }},`
 
-      _c(div,{directives:[{name,rawName}]})
+//      最后生成如下代码 _c(div,{directives:[{name,rawName}]})
     }
   }
   if (hasRuntime) {
