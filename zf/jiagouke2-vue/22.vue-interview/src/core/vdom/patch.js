@@ -75,7 +75,7 @@ export function createPatchFunction (backend) { // 这里定义好所有的钩�
   const { modules, nodeOps } = backend
 
   for (i = 0; i < hooks.length; ++i) {
-    cbs[hooks[i]] = []   cbs[create] = []
+    cbs[hooks[i]] = []   cbs[create] = []   // cbs有hooks属性。  hooks具体参考第34行
     for (j = 0; j < modules.length; ++j) {
       if (isDef(modules[j][hooks[i]])) {
         cbs[hooks[i]].push(modules[j][hooks[i]])
