@@ -19,6 +19,10 @@ const compiler = require('vue-template-compiler');
 // `);
 // console.log(render); // _t('a')   _t('b')  _t('default')
 
+
+//============================================上面是普通插槽的演示==========下面是作用域插槽的演示=================================================
+
+
 // 父组件中没有渲染
 // let {render} = compiler.compile(`
 //     <app>
