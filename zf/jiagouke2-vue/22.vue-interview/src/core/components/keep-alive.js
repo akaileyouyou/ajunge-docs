@@ -122,7 +122,7 @@ export default {
         }
       }
 
-      vnode.data.keepAlive = true // 标记走了缓存
+      vnode.data.keepAlive = true // 标记走了缓存。这里做标记是为让组件不走$mount方法挂载这个操作，而是调用prepatch()方法更新，更新子组件，参考：https://github.com/akaileyouyou/ajunge-docs/blob/main/zf/jiagouke2-vue/22.vue-interview/src/core/vdom/create-component.js#L41
     }
     return vnode || (slot && slot[0])
   }
