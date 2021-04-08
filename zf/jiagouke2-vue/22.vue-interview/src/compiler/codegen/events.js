@@ -40,9 +40,9 @@ const keyNames: { [key: string]: string | Array<string> } = {
 const genGuard = condition => `if(${condition})return null;`
 
 const modifierCode: { [key: string]: string } = {
-  stop: '$event.stopPropagation();',                        // stop
-  prevent: '$event.preventDefault();',                      // prevent
-  self: genGuard(`$event.target !== $event.currentTarget`), // self
+  stop: '$event.stopPropagation();',                        // 对应事件的stop修饰符
+  prevent: '$event.preventDefault();',                      // 对应事件的prevent修饰符
+  self: genGuard(`$event.target !== $event.currentTarget`), // 对应事件的self修饰符
   ctrl: genGuard(`!$event.ctrlKey`),
   shift: genGuard(`!$event.shiftKey`),
   alt: genGuard(`!$event.altKey`),
