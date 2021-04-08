@@ -39,9 +39,9 @@ export function addRawAttr (el: ASTElement, name: string, value: any, range?: Ra
   el.attrsList.push(rangeSetItem({ name, value }, range))
 }
 
-export function addDirective (
+export function addDirective (   // 这写参数是对指令的描述。
   el: ASTElement,
-  name: string,
+  name: string,         //指令的名字
   rawName: string,
   value: string,
   arg: ?string,
