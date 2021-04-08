@@ -103,9 +103,9 @@ function genHandler (handler: ASTElementHandler | Array<ASTElementHandler>): str
   }
   // 绑定的事件是函数名，例如aaa
   const isMethodPath = simplePathRE.test(handler.value)
-  // 绑定的事件是函数表达式，例如aaa()
+  // 绑定的事件是函数表达式，例如（）=>{}
   const isFunctionExpression = fnExpRE.test(handler.value)
-   // 绑定的事件是函数调用
+   // 绑定的事件是函数调用，例如aaa()
   const isFunctionInvocation = simplePathRE.test(handler.value.replace(fnInvokeRE, ''))
 
   if (!handler.modifiers) {
