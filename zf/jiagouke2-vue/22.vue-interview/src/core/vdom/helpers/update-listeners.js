@@ -19,7 +19,7 @@ const normalizeEvent = cached((name: string): {
   handler?: Function,
   params?: Array<any>
 } => {
-  const passive = name.charAt(0) === '&'
+  const passive = name.charAt(0) === '&'   // 处理在编译的时候给事件名加上&的事件即.passive事件。
   name = passive ? name.slice(1) : name
   const once = name.charAt(0) === '~' // Prefixed last, checked first
   name = once ? name.slice(1) : name
@@ -77,7 +77,7 @@ export function updateListeners (
       if (isUndef(cur.fns)) {
         cur = on[name] = createFnInvoker(cur, vm)
       }
-      if (isTrue(event.once)) {
+      if (isTrue(event.once)) {   //处理事件的once修饰符
         cur = on[name] = createOnceHandler(event.name, cur, event.capture)
       }
       add(event.name, cur, event.capture, event.passive, event.params)
