@@ -61,8 +61,8 @@ export default {
   },
 
   created () {
-    this.cache = Object.create(null) // {a:vnode,b:vnode}
-    this.keys = []  // [a,b]
+    this.cache = Object.create(null) // {a:vnode,b:vnode}   // 创建一个缓存对象。
+    this.keys = []  // [a,b]   // 记录了缓存了哪些vnode。
   },
 
   destroyed () {
@@ -71,7 +71,7 @@ export default {
     }
   },
 
-  mounted () { // 监听include和exclude
+  mounted () { // 当组件挂载完成后。需要监听include和exclude
     this.$watch('include', val => { // 变化时 更新缓存
       pruneCache(this, name => matches(val, name))
     })
@@ -83,13 +83,13 @@ export default {
   render () {
     
     const slot = this.$slots.default // 获取所有的内容
-    const vnode: VNode = getFirstComponentChild(slot) // 获取第一个子组件
+    const vnode: VNode = getFirstComponentChild(slot) // 获取第一个子组件的虚拟dom
     const componentOptions: ?VNodeComponentOptions = vnode && vnode.componentOptions
     if (componentOptions) {
       // check pattern
       const name: ?string = getComponentName(componentOptions)
       const { include, exclude } = this
-      // 不走缓存
+      // 不走缓存// 当前组件没有在 include或者在 exclude里，说明此组件不需要缓存。直接返回此组件，不缓存即可。
       if (
         // not included   不包含
         (include && (!name || !matches(include, name))) ||
@@ -98,7 +98,9 @@ export default {
       ) { // 返回虚拟节点
         return vnode // 没有走缓存
       }
-
+    
+      
+      // 当前组件需要缓存下来
       const { cache, keys } = this
       const key: ?string = vnode.key == null
         // same constructor may get registered as different local components
