@@ -51,26 +51,26 @@ export function addDirective (   // 这写参数是对指令的描述。
 ) { // 格式化指令
 
 
-  ast = {
-    direcitves:[
-      {
-        name,
-        rawName,
-        value,
-        arg,
-        isDynamicArg,
-        modifiers
-      },
-      {
-        name,
-        rawName,
-        value,
-        arg,
-        isDynamicArg,
-        modifiers
-      }
-    ]
-  }
+//   ast = {   // ast语法树就像下面这样添加了指令
+//     direcitves:[
+//       {
+//         name,
+//         rawName,
+//         value,
+//         arg,
+//         isDynamicArg,
+//         modifiers
+//       },
+//       {
+//         name,
+//         rawName,
+//         value,
+//         arg,
+//         isDynamicArg,
+//         modifiers
+//       }
+//     ]
+//   }
 
   (el.directives || (el.directives = [])).push(rangeSetItem({
     name,
