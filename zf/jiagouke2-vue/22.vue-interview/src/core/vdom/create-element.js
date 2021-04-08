@@ -108,7 +108,7 @@ export function _createElement (
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
       )
-    } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) { // 通过名字找到组件的定义
+    } else if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) { // 通过名字找到组件的定义。通过组件的配置项context.$options里的名字(tag)找到组件。
       // component
       vnode = createComponent(Ctor, data, context, children, tag)
     } else {
