@@ -163,7 +163,7 @@ function genHandler (handler: ASTElementHandler | Array<ASTElementHandler>): str
     // 方法包装  e.prenveDefault() ...
 
    // 例如：@click.prevent="fn"             
-    return `function($event){${code}${handlerCode}}`  // 此时code为$event.prevntDefault；此时handlerCode为fn($e)。
+    return `function($event){${code}${handlerCode}}`  // 此时code为$event.prevntDefault；此时handlerCode为fn($event)。
   }
 }
 
