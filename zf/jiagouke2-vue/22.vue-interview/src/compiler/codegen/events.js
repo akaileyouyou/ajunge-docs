@@ -95,16 +95,17 @@ function genWeexHandler (params: Array<any>, handlerCode: string) {
 // 处理handler
 function genHandler (handler: ASTElementHandler | Array<ASTElementHandler>): string {
   if (!handler) {
-    return 'function(){}'
+    return 'function(){}'   // 如果没有绑定事件处理函数，那么返回一个空函数。
   }
 
   if (Array.isArray(handler)) {
     return `[${handler.map(handler => genHandler(handler)).join(',')}]`
   }
-  // aaa
+  // 绑定的事件是函数名，例如aaa
   const isMethodPath = simplePathRE.test(handler.value)
-  // aa()
+  // 绑定的事件是函数表达式，例如aaa()
   const isFunctionExpression = fnExpRE.test(handler.value)
+   // 绑定的事件是函数调用
   const isFunctionInvocation = simplePathRE.test(handler.value.replace(fnInvokeRE, ''))
 
   if (!handler.modifiers) {
@@ -161,8 +162,8 @@ function genHandler (handler: ASTElementHandler | Array<ASTElementHandler>): str
     }
     // 方法包装  e.prenveDefault() ...
 
-    @click="fn"          $event.prevntDefault   fn($e)
-    return `function($event){${code}${handlerCode}}`
+   // 例如：@click.prevent="fn"             
+    return `function($event){${code}${handlerCode}}`  // 此时code为$event.prevntDefault；此时handlerCode为fn($e)。
   }
 }
 
